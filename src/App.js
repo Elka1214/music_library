@@ -5,6 +5,8 @@ import Searchbar from "./Components/Searchbar";
 import ArtistView from "./Components/ArtistView";
 import AlbumView from "./Components/AlbumView";
 import { DataContext } from "./Context/DataContext";
+import { SearchContext } from "./Context/SearchContext";
+import SongView from "./Components/SongView";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -44,7 +46,10 @@ function App() {
             path="/"
             element={
               <Fragment>
-                <Searchbar handleSearch={handleSearch} />
+                {message}
+                <SearchContext.Provider value={handleSearch}>
+                  <Searchbar />
+                </SearchContext.Provider>
                 <DataContext.Provider value={data}>
                   <Gallery />
                 </DataContext.Provider>
@@ -54,6 +59,7 @@ function App() {
 
           <Route path="/artist/:id" element={<ArtistView />} />
           <Route path="/album/:id" element={<AlbumView />} />
+          <Route path="/song/:id" element={<SongView />} />
         </Routes>
       </Router>
     </div>
